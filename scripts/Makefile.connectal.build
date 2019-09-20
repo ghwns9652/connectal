@@ -166,6 +166,7 @@ ubuntu.exe2: prepare_bin_target
 
 connectal.so: prepare_bin_target
 ifneq ($(OS),android)
+	@echo "compiling connectal.so"
 	$(Q)cd jni; $(MAKE) --no-print-directory -f Ubuntu.mk connectal.so
 	@cp -v jni/connectal.so bin
 else
@@ -177,6 +178,12 @@ endif
 
 ifneq ($(BOARD),bluesim)
 ifneq ($(OS),android)
+
+connectal.a: prepare_bin_target
+	@echo "compiling connectal.a"
+	cd jni; $(MAKE) --no-print-directory -f Ubuntu.mk connectal.a
+	@echo "connectal.a done"
+
 program:
 	fpgajtag bin/mkTop.bin.gz
 	sleep 1
